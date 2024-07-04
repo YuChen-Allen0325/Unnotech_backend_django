@@ -78,9 +78,10 @@ def SidebarInfo(url):
     hot_articles_body = soup.find('div', id="hot_articles_body")
     sidebar_title = hot_articles_body.find_all('dl')
 
-    sidebar = []
+    sidebar = ''
 
     for i in sidebar_title:
-        sidebar.append(str(i.get_text()))
+        sidebar = str(i.get_text()).replace('\n\n', ' ').replace(' ','')
+        sidebar = sidebar.split('\n')
     
     return sidebar
