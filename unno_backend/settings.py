@@ -28,6 +28,33 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+# Schedule
+CRONJOBS = [
+    ('* * * * *', 'nba_news.schedule.my_daily_task',
+     '>> /var/log/cron.log 2>&1'),
+]
+
+
+CRONJOB_LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/var/log/cron.log',
+        },
+    },
+    'loggers': {
+        'django_crontab': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
+
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,6 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_crontab',
     'nba_news',
 ]
 

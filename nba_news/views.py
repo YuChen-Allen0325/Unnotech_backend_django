@@ -1,5 +1,3 @@
-import copy
-import requests
 from config import NbaHotNewsConfig
 from rest_framework.views import APIView
 from rest_framework.response import Response
