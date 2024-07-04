@@ -81,6 +81,6 @@ def SidebarInfo(url):
     sidebar = []
 
     for i in sidebar_title:
-        sidebar.append(str(i.text))
+        sidebar.append(str(i.get_text()))
     
     return sidebar
