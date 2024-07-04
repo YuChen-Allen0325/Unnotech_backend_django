@@ -1,6 +1,8 @@
-
+import logging.config
 from datetime import datetime
+
+log = logging.getLogger(__name__)
 
 
 def my_daily_task():
-    print(f"Task executed at: {datetime.now()}")
+    log.error("!!!!!!!!!!!!!!!!!!!!!!!!!!")
