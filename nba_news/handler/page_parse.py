@@ -16,9 +16,13 @@ def SearchLastPage(first_page_url):
     soup = Bs4Soup(first_page_url)
 
     gonext = soup.find('gonext').find_all('a')
-    last_page_url = gonext[-1].get('href')
-    first_slash_from_bottom = last_page_url.rfind('/')
-    max_page_number = int(last_page_url[(first_slash_from_bottom + 1):])
+
+    if gonext:
+        last_page_url = gonext[-1].get('href')
+        first_slash_from_bottom = last_page_url.rfind('/')
+        max_page_number = int(last_page_url[(first_slash_from_bottom + 1):])
+    else:
+        max_page_number = 0
 
     return max_page_number
 

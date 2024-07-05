@@ -62,6 +62,9 @@ class CronJobView(APIView):
 
         last_page = SearchLastPage(url)
 
+        if last_page == 0:
+            return Response({'message': 'last page number is weird', "payload": []}, status=200)
+
         insert_data = []
         filter_data = []
         detail_page_data = []
