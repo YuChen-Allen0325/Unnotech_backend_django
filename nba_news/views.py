@@ -5,6 +5,7 @@ from .models import NBANews, NBANewsDetail, SideBar
 from .serializers import NBANewsSerializer
 from .handler.page_parse import SearchLastPage, MutableMainbar, DetailPageInfo, SidebarInfo
 # Create your views here.
+from memory_profiler import profile
 
 url = NbaHotNewsConfig.NBA_HOT_NEWS_FIREST_PAGE
 
@@ -55,6 +56,7 @@ class SideBarView(APIView):
 
 
 class CronJobView(APIView):
+    @profile
     def get(self, request, *args, **kwargs):
 
         first_slash_from_bottom = url.rfind('/')
@@ -102,4 +104,4 @@ class CronJobView(APIView):
 
         # Websocket
 
-        return Response({'message': 'success', "payload": []}, status=200)
+        return Response({'message': 'success', "payload": [last_page]}, status=200)
