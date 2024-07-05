@@ -49,7 +49,7 @@ def MutableMainbar(url):
 
         copied_tmp = copy.deepcopy(tmp)
         stored_data.append(copied_tmp)
-        filter_db_data.append(title)    # 標題作為判斷新聞是否有更新
+        filter_db_data.append(detail_url)    # 內容頁的URL作為判斷新聞是否有更新
 
     return stored_data, filter_db_data
 
@@ -69,7 +69,8 @@ def DetailPageInfo(detail_url):
         paragraph += str(i)
         paragraph += '\n'
 
-    return {"detail_title": detail_title, "author": author, "paragraph": paragraph}
+    return [{"detail_title": detail_title, "author": author, "paragraph": paragraph}]
+
 
 def SidebarInfo(url):
 
@@ -81,7 +82,7 @@ def SidebarInfo(url):
     sidebar = ''
 
     for i in sidebar_title:
-        sidebar = str(i.get_text()).replace('\n\n', ' ').replace(' ','')
+        sidebar = str(i.get_text()).replace('\n\n', ' ').replace(' ', '')
         sidebar = sidebar.split('\n')
-    
+
     return sidebar
