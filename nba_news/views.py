@@ -79,16 +79,16 @@ class CronJobView(APIView):
         if detail_url_amount == len(nba_news):
             return Response({'message': 'Nothing to update', "payload": []}, status=200)
 
+        for detail_url in filter_data:
+            data = DetailPageInfo(detail_url)
+            detail_page_data += data
+
         nba_all_obj = NBANews.objects.all()
         nba_all_detail_obj = NBANewsDetail.objects.all()
         nba_all_obj.delete()
         nba_all_detail_obj.delete()
 
         serializer = NBANewsSerializer(data=insert_data, many=True)
-
-        for detail_url in filter_data:
-            data = DetailPageInfo(detail_url)
-            detail_page_data += data
 
         if serializer.is_valid():
             instances = [NBANews(**item) for item in serializer.validated_data]

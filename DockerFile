@@ -17,8 +17,8 @@ COPY . /app
 COPY mycron /etc/cron.d/mycron
 
 RUN chmod 0644 /etc/cron.d/mycron && \
-    crontab /etc/cron.d/mycron
-    
+    crontab /etc/cron.d/mycron \
+    service cron restart
 
 RUN python manage.py makemigrations && \
     python manage.py migrate
