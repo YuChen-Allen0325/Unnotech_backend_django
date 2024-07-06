@@ -49,7 +49,7 @@ class NBANewsDetailView(APIView):
             return Response({'message': 'Data not found', "payload": []}, status=400)
 
 
-class CronJobView(APIView):
+class CronJobView(APIView):   # 排程API
     @profile
     def get(self, request, *args, **kwargs):
 
@@ -72,13 +72,13 @@ class CronJobView(APIView):
             insert_data += a
             filter_data += b
 
-        nba_news = NBANews.objects.filter(detail_url__in=filter_data)
+        nba_news = NBANews.objects.filter(detail_url__in=filter_data)  # 內容頁的URL作為判斷新聞是否有更新
         detail_url_amount = len(filter_data)
 
         if detail_url_amount == len(nba_news):
             return Response({'message': 'Nothing to update', "payload": []}, status=200)
 
-        for detail_url in filter_data:
+        for detail_url in filter_data:   # 爬內容頁, 先爬再刪舊資料不然爬太久會影響GET, 內存消耗可能比較大一點但可以換來GET資料穩定
             data = DetailPageInfo(detail_url)
             detail_page_data += data
 
