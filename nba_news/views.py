@@ -45,7 +45,7 @@ class NBANewsDetailView(APIView):
 
             return Response({'message': 'success', "payload": return_data}, status=200)
 
-        except NBANewsDetail.DoesNotExist:
+        except:
             return Response({'message': 'Data not found', "payload": []}, status=400)
 
 
