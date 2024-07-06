@@ -16,7 +16,3 @@ class NBANewsDetail(models.Model):
     detail_title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)
     paragraph = models.TextField()     # rich text
-
-
-class SideBar(models.Model):
-    title = models.CharField(max_length=200)

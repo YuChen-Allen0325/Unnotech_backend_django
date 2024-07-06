@@ -1,14 +1,16 @@
+import logging.config
+from memory_profiler import profile
 from config import NbaHotNewsConfig
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .models import NBANews, NBANewsDetail, SideBar
+from .models import NBANews, NBANewsDetail
 from .serializers import NBANewsSerializer
-from .handler.page_parse import SearchLastPage, MutableMainbar, DetailPageInfo, SidebarInfo
-# Create your views here.
-from memory_profiler import profile
+from .handler.page_parse import SearchLastPage, MutableMainbar, DetailPageInfo
+
+
+log = logging.getLogger(__name__)
 
 url = NbaHotNewsConfig.NBA_HOT_NEWS_FIREST_PAGE
-
 
 class NBANewsView(APIView):
     def get(self, request, *args, **kwargs):
@@ -45,14 +47,6 @@ class NBANewsDetailView(APIView):
 
         except NBANewsDetail.DoesNotExist:
             return Response({'message': 'Data not found', "payload": []}, status=400)
-
-
-class SideBarView(APIView):
-    def get(self, request, *args, **kwargs):
-
-        sidebar_info = SidebarInfo(url)
-
-        return Response({'message': 'success', "payload": sidebar_info}, status=200)
 
 
 class CronJobView(APIView):
@@ -102,6 +96,7 @@ class CronJobView(APIView):
                 detail_page_data[i]["nba_news_id"] = insert_infos[i].id
                 NBANewsDetail.objects.create(**detail_page_data[i])
 
+        logging.info('Cron job done')
         # Websocket
 
         return Response({'message': 'success', "payload": [last_page]}, status=200)
