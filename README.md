@@ -3,6 +3,7 @@
 1.抓取 http://tw-nba.udn.com/nba/index 中的焦點新聞。  (complete)  
 2.使用 Django 設計恰當的 Model，並將所抓取新聞存儲至 DB。  (complete)  
 3.使用 Django REST Framework 配合 AJAX 實現以下頁面：  (complete)  
+
     *焦點新聞列表  
     *新聞詳情頁面  
 4.以 Pull-Request 的方式將代碼提交。  (complete)  
