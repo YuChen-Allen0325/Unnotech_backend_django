@@ -5,7 +5,18 @@ from bs4 import BeautifulSoup
 
 def Bs4Soup(url):
 
+    status = 0
+    content_length = 0
+    retry = 0
+
     response = requests.get(url)
+
+    while (not (status == 200 and content_length > 0)) and retry < 5:  # 處理 HTTP/11" 200 None 重試5次
+        response = requests.get(url)
+        status = response.status_code
+        content_length = len(response.content) if response.content != None else 0
+        retry += 1
+
     soup = BeautifulSoup(response.text, 'html.parser')
 
     return soup

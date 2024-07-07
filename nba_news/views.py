@@ -91,7 +91,9 @@ class CronJobView(APIView):   # 排程API
 
         if serializer.is_valid():
             instances = [NBANews(**item) for item in serializer.validated_data]
-            insert_infos = NBANews.objects.bulk_create(instances)
+            NBANews.objects.bulk_create(instances)
+            insert_infos = NBANews.objects.all()
+
             for i in range(len(insert_infos)):
                 detail_page_data[i]["nba_news_id"] = insert_infos[i].id
                 NBANewsDetail.objects.create(**detail_page_data[i])
