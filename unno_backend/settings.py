@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+from config import PostgresConfig
 import logging.config
 import logging_config
 
@@ -89,11 +90,11 @@ WSGI_APPLICATION = 'unno_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'nba',
-        'USER': 'allenxie',
-        'PASSWORD': '123456789',
-        'HOST': '15.152.54.200',
-        'PORT': '5432'
+        'NAME': PostgresConfig.PG_DATABASES_NAME,
+        'USER': PostgresConfig.PG_DATABASES_USER,
+        'PASSWORD': PostgresConfig.PG_DATABASES_PASSWORD,
+        'HOST': PostgresConfig.PG_DATABASES_HOST,
+        'PORT': PostgresConfig.PG_DATABASES_PORT
     }
 }
 
